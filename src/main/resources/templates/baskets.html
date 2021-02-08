@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Baskets</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/home">Shopping</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/home">View Basket</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-5">
+
+    <h1 class="mb-2" th:text="|Welcome to shopping ${username}|">Welcome </h1>
+
+    <h2>Current Baskets</h2>
+    <table class="table table-striped mb-2">
+        <thead class="table-dark">
+        <tr>
+            <th scope="col">Basket Name</th>
+            <th scope="col">Placed at</th>
+            <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="basket : ${basketList}">
+            <td th:text="${basket.name}">Basket name</td>
+            <td th:text="${basket.placedAt}">Placed at</td>
+            <td>
+                <a class="btn btn-primary" th:href="@{/basket/{basketId}(basketId=${basket.id})}">view basket</a>
+                <a class="btn btn-danger" th:href="@{/home/delete/{basketId}(basketId=${basket.id})}">delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <form method="POST" th:object="${basket}">
+        <fieldset>
+            <legend>Create a new Basket</legend>
+            <div class="mb-3">
+                <label for="name" class="form-label">Enter basket name: </label>
+                <input type="text" id="name" class="form-control" th:field="*{name}">
+            </div>
+
+            <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</span>
+
+            <button type="submit" class="btn btn-primary">add basket</button>
+        </fieldset>
+    </form>
+
+    <h2 class="mt-2 mb-2">Orders</h2>
+    <table class="table table-striped mb-2">
+        <thead class="table-dark">
+        <tr>
+            <th scope="col">Order number</th>
+            <th scope="col">Placed at</th>
+            <th scope="col">Basket</th>
+            <th scope="col">Customer</th>
+            <th scope="col">Address</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="order : ${orderList}">
+            <td th:text="${order.id}">Order id</td>
+            <td th:text="${order.placedAt}">Placed at</td>
+            <td th:text="${order.basket.name}">Basket</td>
+            <td th:text="${order.customer.username}">Customer</td>
+            <td th:text="${order.addresss}">Address
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>
+

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/home">Shopping</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/home">View Basket</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-2 mb-3">
+
+    <form method="POST" action="/basket/select/address" class="mb-2">
+        <fieldset>
+            <legend>Choose delivery address</legend>
+
+            <div th:each="address : ${addressList}">
+                <input name="selectedAddress" type="radio" th:value="${address.id}" class="btn-check" th:id="${address.id}">
+                <label class="btn btn-outline-secondary mb-1" th:for="${address.id}">
+                    <span th:text="${address.street}">address</span><br/>
+                    <span th:text="${address.city}">address</span><br/>
+                    <span th:text="${address.state}">address</span><br/>
+                    <span th:text="${address.zip}">address</span><br/>
+                </label>
+
+                <a class="btn btn-danger" th:href="@{/basket/delete/address/{addressId}(addressId=${address.id})}">delete</a>
+
+                <br>
+
+            </div>
+
+            <button type="submit" class="btn btn-primary">select address</button>
+        </fieldset>
+    </form>
+
+    <form method="POST" action="/basket/add/address" th:object="${address}">
+        <fieldset>
+            <legend>Add new delivery address</legend>
+            <div class="mb-3">
+                <label for="street" class="form-label">Enter address street: </label>
+                <input type="text" th:field="*{street}" id="street" class="form-control">
+                <span th:if="${#fields.hasErrors('street')}" th:errors="*{street}">street Error</span>
+            </div>
+
+            <div class="mb-3">
+                <label for="city" class="form-label">Enter address city: </label>
+                <input type="text" th:field="*{city}" id="city" class="form-control">
+                <span th:if="${#fields.hasErrors('city')}" th:errors="*{city}">city Error</span>
+            </div>
+
+            <div class="mb-3">
+                <label for="state" class="form-label">Enter address state: </label>
+                <input type="text" th:field="*{state}" id="state" class="form-control">
+                <span th:if="${#fields.hasErrors('state')}" th:errors="*{state}">state Error</span>
+            </div>
+
+            <div class="mb-3">
+                <label for="zip" class="form-label">Enter address zip: </label>
+                <input type="text" th:field="*{zip}" id="zip" class="form-control">
+                <span th:if="${#fields.hasErrors('zip')}" th:errors="*{zip}">zip Error</span>
+            </div>
+
+            <button type="submit" class="btn btn-primary">add address</button>
+        </fieldset>
+    </form>
+</div>
+
+</body>
+</html>

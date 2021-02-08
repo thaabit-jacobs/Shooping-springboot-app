@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/home">Shopping</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/home">View Basket</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container mb-3">
+
+    <h1>Order successfully placed</h1>
+
+    <h2>Order</h2>
+    <p th:text="|Order number: ${orderNumber}|"></p>
+
+    <h2>Customer</h2>
+    <p th:text="${username}"></p>
+
+    <h2>Billing Address</h2>
+    <p th:text="${street}"></p>
+    <p th:text="${city}"></p>
+    <p th:text="${state}"></p>
+    <p th:text="${zip}"></p>
+
+    <h2>Products</h2>
+    <table class="table table-striped mb-2">
+        <thead class="table-dark">
+        <tr>
+            <th scope="col">Product Name</th>
+            <th scope="col">Product Price</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="product : ${productList}">
+            <td th:text="${product.name}">Product name</td>
+            <td th:text="${product.price}">Product Price</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h3 th:text="|Order Total: R${total}|"></h3>
+
+</div>
+
+</body>
+</html>

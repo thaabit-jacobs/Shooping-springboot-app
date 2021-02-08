@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Customer</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Shopping</a>
+    </div>
+</nav>
+
+
+<div class="container mt-5">
+    <form method="POST" th:object="${customer}">
+        <fieldset>
+            <legend>Login into shopping</legend>
+            <div class="mb-3">
+                <label for="username" class="form-label">Enter username: </label>
+                <input type="text" id="username" class="form-control" th:field="*{username}">
+            </div>
+
+            <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Name Error</span>
+
+            <button type="submit" class="btn btn-primary">login</button>
+        </fieldset>
+    </form>
+</div>
+
+</body>
+</html>

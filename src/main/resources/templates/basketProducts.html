@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Basket View</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/home">Shopping</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/home">View Basket</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <h1 class="mb-2">Basket products</h1>
+
+    <h2 class="mb-2" th:text="|Basket name:${basketName}|">Basket name: </h2>
+
+    <table class="table table-striped mb-2">
+        <thead class="table-dark">
+        <tr>
+            <th scope="col">Product Name</th>
+            <th scope="col">Product Price</th>
+            <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="product : ${basketProductList}">
+            <td th:text="${product.name}">Product name</td>
+            <td th:text="${product.price}">Product Price</td>
+            <td>
+                <a class="btn btn-danger" th:href="@{/basket/delete/{productId}(productId=${product.id})}">delete</a>
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
+
+    <h3 class="mb-2" th:text="|Total: R${totalCost}|">Total: R</h3>
+
+    <a class="btn btn-primary mb-2" href="/basket/address">checkout basket</a>
+
+    <form method="POST" th:object="${selectProductList}" class="mb-2">
+        <fieldset>
+            <legend>Add Products to Basket</legend>
+            <div th:each="product : ${allProductList}">
+                <input name="productIds" type="checkbox" th:value="${product.id}" class="btn-check" th:id="${product.id}">
+                <label class="btn btn-outline-secondary mb-1" th:for="${product.id}">
+                    <span th:text="${product.name}">Product</span>
+                    <span th:text="${product.price}">Product</span>
+                </label>
+
+                <br>
+
+                <span th:if="${#fields.hasErrors('productIds')}" th:errors="*{productIds}">productIds Error</span>
+
+            </div>
+
+            <button type="submit" class="btn btn-primary">Add product</button>
+        </fieldset>
+    </form>
+</div>
+
+
+
+</body>
+</html>
