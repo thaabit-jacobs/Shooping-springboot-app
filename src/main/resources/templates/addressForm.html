@@ -55,25 +55,25 @@
             <legend>Add new delivery address</legend>
             <div class="mb-3">
                 <label for="street" class="form-label">Enter address street: </label>
-                <input type="text" th:field="*{street}" id="street" class="form-control">
+                <input type="text" th:field="*{street}" id="street" class="form-control" required>
                 <span th:if="${#fields.hasErrors('street')}" th:errors="*{street}">street Error</span>
             </div>
 
             <div class="mb-3">
                 <label for="city" class="form-label">Enter address city: </label>
-                <input type="text" th:field="*{city}" id="city" class="form-control">
+                <input type="text" th:field="*{city}" id="city" class="form-control" required>
                 <span th:if="${#fields.hasErrors('city')}" th:errors="*{city}">city Error</span>
             </div>
 
             <div class="mb-3">
                 <label for="state" class="form-label">Enter address state: </label>
-                <input type="text" th:field="*{state}" id="state" class="form-control">
+                <input type="text" th:field="*{state}" id="state" class="form-control" required>
                 <span th:if="${#fields.hasErrors('state')}" th:errors="*{state}">state Error</span>
             </div>
 
             <div class="mb-3">
                 <label for="zip" class="form-label">Enter address zip: </label>
-                <input type="text" th:field="*{zip}" id="zip" class="form-control">
+                <input type="text" th:field="*{zip}" id="zip" class="form-control" required>
                 <span th:if="${#fields.hasErrors('zip')}" th:errors="*{zip}">zip Error</span>
             </div>
 

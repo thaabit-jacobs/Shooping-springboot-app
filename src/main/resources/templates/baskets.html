@@ -55,7 +55,7 @@
             <legend>Create a new Basket</legend>
             <div class="mb-3">
                 <label for="name" class="form-label">Enter basket name: </label>
-                <input type="text" id="name" class="form-control" th:field="*{name}">
+                <input type="text" id="name" class="form-control" th:field="*{name}" required>
             </div>
 
             <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</span>
